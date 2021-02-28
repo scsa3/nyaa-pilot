@@ -1,11 +1,15 @@
 // ==UserScript==
 // @name         Nyaa Pilot
-// @namespace    http://tampermonkey.net/
-// @version      0.3
-// @description  try to take over the world!
+// @namespace    https://github.com/scsa3/nyaa-pilot/raw/master/src/nyaa-pilot/nyaaPilot.user.js
+// @version      0.3.1
 // @author       scsa3
-// @run-at		 document-end
+// @description  Preview image from link in description page
+// @homepageURL  https://github.com/scsa3/nyaa-pilot
+// @updateURL    https://github.com/scsa3/nyaa-pilot/raw/master/src/nyaa-pilot/nyaaPilot.user.js
+// @downloadURL  https://github.com/scsa3/nyaa-pilot/raw/master/src/nyaa-pilot/nyaaPilot.user.js
+// @supportURL   https://github.com/scsa3/nyaa-pilot/issues
 // @match        https://sukebei.nyaa.si/view/*
+// @run-at		 document-end
 // @grant        unsafeWindow
 // ==/UserScript==
 
