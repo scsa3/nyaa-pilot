@@ -4,7 +4,7 @@
 // @version      0.3
 // @description  try to take over the world!
 // @author       scsa3
-// @run-at		 document-start
+// @run-at		 document-end
 // @match        https://sukebei.nyaa.si/view/*
 // @grant        unsafeWindow
 // ==/UserScript==
@@ -16,34 +16,8 @@
 })();
 
 function main() {
-    let aArray = getAllA();
     window.addEventListener("message", receiveMessage, false);
-    appendIframes(aArray);
-}
-
-function getAllA() {
-    let div = document.getElementById("torrent-description");
-    return div.getElementsByTagName("a");
-}
-
-function appendIframes(aArray) {
-    for (let a of aArray) {
-        appendAIframe(a);
-    }
-}
-
-function appendAIframe(aTag) {
-    let iframe = document.createElement("iframe");
-    iframe.src = aTag.href;
-    iframe.id = aTag.href;
-    iframe.height = "1";
-    iframe.width = "1";
-    iframe.sandbox.add('allow-forms');
-    iframe.sandbox.add('allow-same-origin');
-    iframe.sandbox.add('allow-scripts');
-    let div = document.createElement("div");
-    div.appendChild(iframe);
-    aTag.parentNode.insertBefore(div, aTag);
+    linkToIframe();
 }
 
 function receiveMessage(e) {
@@ -57,3 +31,50 @@ function receiveMessage(e) {
         f.remove();
     }
 }
+
+function linkToIframe() {
+    let aTagArray = getLinksInDescription();
+    appendIframes(aTagArray);
+}
+
+function getLinksInDescription() {
+    let div = document.getElementById("torrent-description");
+    return div.getElementsByTagName("a");
+}
+
+function appendIframes(aArray) {
+    for (let a of aArray) {
+        if (a.href.endsWith('.jpg')) {
+            appendAImage(a);
+        } else {
+            appendAIframe(a);
+        }
+    }
+}
+
+function appendAImage(aTag) {
+    let img = document.createElement("img");
+    img.src = aTag.href;
+    img.id = aTag.href;
+    let div = document.createElement("div");
+    div.appendChild(img);
+    aTag.parentNode.insertBefore(div, aTag);
+}
+
+function appendAIframe(aTag) {
+    let iframe = document.createElement("iframe");
+    iframe.src = aTag.href;
+    iframe.id = aTag.href;
+    iframe.height = "1";
+    iframe.width = "1";
+    iframe.sandbox.add('allow-forms');
+    iframe.sandbox.add('allow-same-origin');
+    iframe.sandbox.add('allow-scripts');
+
+    let div = document.createElement("div");
+    div.appendChild(iframe);
+
+    aTag.parentNode.insertBefore(div, aTag);
+}
+
+
